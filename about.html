@@ -16,6 +16,9 @@
     <meta property="og:url" content="https://www.frontiergrowth.io/about.html">
     <meta property="og:image" content="https://www.frontiergrowth.io/assets/frontier-growth-logo-light.png">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About Frontier Growth | Automated Outreach and Lead Generation">
+    <meta name="twitter:description" content="Automated outreach and strategic marketing systems that help businesses generate leads, book appointments, and grow faster.">
+    <meta name="twitter:image" content="https://www.frontiergrowth.io/assets/frontier-growth-logo-light.png">
     <link rel="stylesheet" href="styles.css">
     <script type="application/ld+json">
       {
@@ -34,27 +37,31 @@
     </script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <!-- Site header and primary navigation -->
     <header class="site-header">
       <a class="brand" href="index.html" aria-label="Frontier Growth home">
-        <img src="assets/frontier-growth-logo-light-cropped.png" alt="Frontier Growth">
+        <img src="assets/frontier-growth-logo-light-cropped.png" alt="Frontier Growth" width="300" height="104">
       </a>
-      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
       </button>
-      <nav class="site-nav" aria-label="Primary navigation">
+      <nav class="site-nav" id="primary-navigation" aria-label="Primary navigation">
         <a href="realtor-campaigns.html">Realtor Campaigns</a>
         <a href="homeowner-campaigns.html">Homeowner Campaigns</a>
         <a href="cold-outreach.html">Cold Outreach</a>
-        <a href="about.html">About Us</a>
-        <a href="index.html#contact">Contact</a>
-        <a class="nav-cta" href="index.html#contact">Check Availability</a>
+        <a href="about.html" aria-current="page">About Us</a>
+        <a href="#contact">Contact</a>
+        <a class="nav-cta" href="#contact">Check Availability</a>
       </nav>
     </header>
 
-    <main>
-      <section class="hero page-hero about-hero">
+    <main id="main-content">
+      <!-- Page hero -->
+      <section class="hero page-hero">
         <div class="hero-copy">
           <p class="eyebrow">About Us</p>
           <h1>Marketing systems built for consistent growth.</h1>
@@ -63,7 +70,7 @@
             through automated outreach and strategic marketing systems.
           </p>
           <div class="button-row">
-            <a class="button primary" href="index.html#contact">Contact Frontier Growth</a>
+            <a class="button primary" href="#contact">Contact Frontier Growth</a>
             <a class="button secondary" href="cold-outreach.html">View Campaigns</a>
           </div>
         </div>
@@ -157,6 +164,7 @@
         </ul>
       </section>
 
+      <!-- Contact form -->
       <section class="section contact-section" id="contact">
         <div>
           <p class="eyebrow">Contact</p>
@@ -166,29 +174,30 @@
         <form class="contact-form" action="mailto:justin@frontiergrowth.io" method="post" enctype="text/plain">
           <label>
             Full name
-            <input type="text" name="name" autocomplete="name">
+            <input type="text" name="name" autocomplete="name" required>
           </label>
           <label>
             Company
-            <input type="text" name="company" autocomplete="organization">
+            <input type="text" name="company" autocomplete="organization" required>
           </label>
           <label>
             Email
-            <input type="email" name="email" autocomplete="email">
+            <input type="email" name="email" autocomplete="email" required>
           </label>
           <label>
             Service category
-            <input type="text" name="category" placeholder="Moving, roofing, insurance...">
+            <input type="text" name="category" placeholder="Moving, roofing, insurance..." required>
           </label>
           <label class="full">
             Target market
-            <textarea name="market" rows="4" placeholder="City, county, ZIP codes, or service area"></textarea>
+            <textarea name="market" rows="4" placeholder="City, county, ZIP codes, or service area" required></textarea>
           </label>
           <button class="button primary" type="submit">Contact Frontier Growth</button>
         </form>
       </section>
     </main>
 
+    <!-- Site footer -->
     <footer class="site-footer">
       <div>
         <strong>Frontier Growth</strong>

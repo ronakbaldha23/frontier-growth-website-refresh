@@ -16,21 +16,28 @@
     <meta property="og:url" content="https://www.frontiergrowth.io/homeowner-campaigns.html">
     <meta property="og:image" content="https://www.frontiergrowth.io/assets/neighborhood-aerial.jpg">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Homeowner Campaigns for Local Service Businesses | Frontier Growth">
+    <meta name="twitter:description" content="Reach homeowners with targeted outreach based on property, ownership, neighborhood, and home-event signals.">
+    <meta name="twitter:image" content="https://www.frontiergrowth.io/assets/neighborhood-aerial.jpg">
+    <link rel="preconnect" href="https://images.unsplash.com">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <!-- Site header and primary navigation -->
     <header class="site-header">
       <a class="brand" href="index.html" aria-label="Frontier Growth home">
-        <img src="assets/frontier-growth-logo-light-cropped.png" alt="Frontier Growth">
+        <img src="assets/frontier-growth-logo-light-cropped.png" alt="Frontier Growth" width="300" height="104">
       </a>
-      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
       </button>
-      <nav class="site-nav" aria-label="Primary navigation">
+      <nav class="site-nav" id="primary-navigation" aria-label="Primary navigation">
         <a href="realtor-campaigns.html">Realtor Campaigns</a>
-        <a href="homeowner-campaigns.html">Homeowner Campaigns</a>
+        <a href="homeowner-campaigns.html" aria-current="page">Homeowner Campaigns</a>
         <a href="cold-outreach.html">Cold Outreach</a>
         <a href="about.html">About Us</a>
         <a href="#contact">Contact</a>
@@ -38,7 +45,8 @@
       </nav>
     </header>
 
-    <main>
+    <main id="main-content">
+      <!-- Page hero -->
       <section class="hero page-hero">
         <div class="hero-copy">
           <p class="eyebrow">Homeowner campaigns</p>
@@ -54,6 +62,11 @@
           <img
             src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
             alt="Modern residential home exterior"
+            width="1200"
+            height="800"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
           >
         </div>
       </section>
@@ -165,6 +178,7 @@
         </details>
       </section>
 
+      <!-- Contact form -->
       <section class="section contact-section" id="contact">
         <div>
           <p class="eyebrow">Check availability</p>
@@ -174,21 +188,22 @@
         <form class="contact-form" action="mailto:justin@frontiergrowth.io" method="post" enctype="text/plain">
           <label>
             Full name
-            <input type="text" name="name" autocomplete="name">
+            <input type="text" name="name" autocomplete="name" required>
           </label>
           <label>
             Email
-            <input type="email" name="email" autocomplete="email">
+            <input type="email" name="email" autocomplete="email" required>
           </label>
           <label class="full">
             Market and category
-            <textarea name="market" rows="4"></textarea>
+            <textarea name="market" rows="4" placeholder="City, ZIP codes, neighborhoods, and service category" required></textarea>
           </label>
           <button class="button primary" type="submit">Check Availability</button>
         </form>
       </section>
     </main>
 
+    <!-- Site footer -->
     <footer class="site-footer">
       <div>
         <strong>Frontier Growth</strong>
