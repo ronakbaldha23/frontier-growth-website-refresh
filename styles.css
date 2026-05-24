@@ -2254,7 +2254,8 @@ textarea {
   }
 
   h1 {
-    font-size: clamp(32px, 10vw, 38px);
+    font-size: clamp(28px, 8.2vw, 34px);
+    line-height: 1.08;
   }
 
   h2 {
@@ -2262,7 +2263,7 @@ textarea {
   }
 
   .hero {
-    padding: 34px 18px 28px;
+    padding: 26px 18px 26px;
   }
 
   .eyebrow {
@@ -2281,8 +2282,12 @@ textarea {
   }
 
   .hero-logo {
-    width: min(160px, 42vw);
-    margin-bottom: 18px;
+    width: min(112px, 30vw);
+    margin-bottom: 14px;
+  }
+
+  .hero .hero-text {
+    font-size: 16px;
   }
 
   .hero::after {
