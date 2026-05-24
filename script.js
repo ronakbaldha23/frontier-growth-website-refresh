@@ -35,6 +35,6 @@ if (toggle && nav) {
 document.querySelectorAll(".contact-form").forEach((form) => {
   form.addEventListener("submit", () => {
     const button = form.querySelector("button");
-    if (button) button.textContent = "Opening email...";
+    if (button) button.textContent = "Sending...";
   });
 });

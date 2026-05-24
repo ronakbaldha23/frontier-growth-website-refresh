@@ -303,7 +303,15 @@
           <h2>Find out if your realtor campaign market is open.</h2>
           <p>Share your service category and target area. We will confirm availability and next steps.</p>
         </div>
-        <form class="contact-form" action="mailto:justin@frontiergrowth.io" method="post" enctype="text/plain">
+        <form class="contact-form" name="contact" action="/thank-you.html" method="post" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact">
+          <input type="hidden" name="page" value="Realtor Campaigns">
+          <p class="form-hidden">
+            <label>
+              Do not fill this out
+              <input name="bot-field">
+            </label>
+          </p>
           <label>
             Full name
             <input type="text" name="name" autocomplete="name" required>
