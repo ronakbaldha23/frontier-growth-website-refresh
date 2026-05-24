@@ -163,7 +163,8 @@ a {
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
-textarea:focus-visible {
+textarea:focus-visible,
+select:focus-visible {
   outline: 2px solid var(--color-primary-bright);
   outline-offset: 3px;
 }
@@ -1588,7 +1589,8 @@ label.full {
 }
 
 input,
-textarea {
+textarea,
+select {
   width: 100%;
   border: 1px solid var(--color-border);
   padding: 13px 12px;
@@ -1598,18 +1600,42 @@ textarea {
 }
 
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   border-color: var(--color-primary-bright);
 }
 
 input:user-invalid,
-textarea:user-invalid {
+textarea:user-invalid,
+select:user-invalid {
   border-color: var(--color-danger-alpha-72);
 }
 
 input::placeholder,
 textarea::placeholder {
   color: var(--color-text-secondary-alpha-62);
+}
+
+select {
+  min-height: 48px;
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--color-primary-bright) 50%),
+    linear-gradient(135deg, var(--color-primary-bright) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 50%,
+    calc(100% - 12px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 38px;
+}
+
+select:required:invalid {
+  color: var(--color-text-secondary-alpha-62);
+}
+
+select option {
+  color: var(--color-text-dark);
 }
 
 textarea {
@@ -1637,7 +1663,7 @@ textarea {
 
 .footer-brand,
 .footer-column,
-.footer-newsletter {
+.footer-cta {
   display: grid;
   align-content: start;
   gap: 12px;
@@ -1655,7 +1681,7 @@ textarea {
 }
 
 .footer-brand p,
-.footer-newsletter p,
+.footer-cta p,
 .footer-bottom p {
   margin: 0;
   color: var(--color-text-muted);
@@ -1666,7 +1692,7 @@ textarea {
 }
 
 .footer-column h2,
-.footer-newsletter h2 {
+.footer-cta h2 {
   margin: 0 0 4px;
   color: var(--color-text-primary);
   font-size: 14px;
@@ -1734,28 +1760,14 @@ textarea {
   stroke-linejoin: round;
 }
 
-.footer-newsletter {
+.footer-cta {
   padding: 20px;
   background: var(--color-white-alpha-06);
   border: 1px solid var(--color-border);
 }
 
-.footer-newsletter form {
-  display: grid;
-  gap: 12px;
-}
-
-.footer-newsletter label {
-  gap: 8px;
-}
-
-.footer-newsletter input {
-  min-height: 46px;
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.footer-newsletter .button {
-  width: 100%;
+.footer-cta .button {
+  width: fit-content;
   justify-content: center;
   text-align: center;
 }
@@ -1819,7 +1831,7 @@ textarea {
   }
 
   .footer-brand,
-  .footer-newsletter {
+  .footer-cta {
     grid-column: 1 / -1;
   }
 
@@ -1914,7 +1926,7 @@ textarea {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .footer-newsletter {
+  .footer-cta {
     grid-column: 1 / -1;
   }
 
@@ -2080,7 +2092,7 @@ textarea {
     padding: 40px 18px 28px;
   }
 
-  .footer-newsletter {
+  .footer-cta {
     padding: 18px;
   }
 

@@ -200,7 +200,34 @@
           </label>
           <label>
             Service category
-            <input type="text" name="category" placeholder="Moving, roofing, insurance..." required>
+            <select name="category" required>
+              <option value="" selected disabled>Select a service category</option>
+              <option>Moving</option>
+              <option>Insurance</option>
+              <option>Roofing</option>
+              <option>Plumbing</option>
+              <option>Electrical</option>
+              <option>HVAC</option>
+              <option>Handyman</option>
+              <option>Pest Control</option>
+              <option>Landscaping</option>
+              <option>Tile and Flooring</option>
+              <option>Windows and Doors</option>
+              <option>Garage Doors</option>
+              <option>Pool Services</option>
+              <option>Cleaning Services</option>
+              <option>Junk Removal</option>
+              <option>Solar</option>
+              <option>Fencing</option>
+              <option>Painting</option>
+              <option>Home Security</option>
+              <option>Home Warranty</option>
+              <option>Title</option>
+              <option>Mortgage</option>
+              <option>Staging</option>
+              <option>Interior Design</option>
+              <option>Other</option>
+            </select>
           </label>
           <label class="full">
             Target market
@@ -269,23 +296,10 @@
           <a href="tel:+18506840422">850 684 0422</a>
         </section>
 
-        <section class="footer-newsletter" aria-label="Newsletter signup">
-          <h2>Stay in the loop</h2>
-          <p>Get practical outreach and lead-generation insights for home-service growth.</p>
-          <form name="newsletter" action="/thank-you" method="post" data-netlify="true" netlify-honeypot="bot-field-newsletter">
-            <input type="hidden" name="form-name" value="newsletter">
-            <p class="form-hidden">
-              <label>
-                Do not fill this out
-                <input name="bot-field-newsletter">
-              </label>
-            </p>
-            <label>
-              <span>Email address</span>
-              <input type="email" name="email" autocomplete="email" placeholder="you@company.com" required>
-            </label>
-            <button class="button primary" type="submit">Subscribe</button>
-          </form>
+        <section class="footer-cta" aria-label="Market availability">
+          <h2>Ready to protect your market?</h2>
+          <p>Share your category and service area so we can confirm availability before a competitor claims it.</p>
+          <a class="button primary" href="/contact">Check Availability</a>
         </section>
       </div>
 
