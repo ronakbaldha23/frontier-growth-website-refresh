@@ -74,9 +74,82 @@ if (header) {
   );
 }
 
+document.querySelectorAll(".contact-form select").forEach((select) => {
+  const options = Array.from(select.options);
+  const placeholder = options.find((option) => option.disabled)?.textContent || "Select an option";
+  const wrapper = document.createElement("div");
+  const trigger = document.createElement("button");
+  const list = document.createElement("div");
+
+  select.classList.add("native-select");
+  select.setAttribute("tabindex", "-1");
+  select.removeAttribute("required");
+
+  wrapper.className = "custom-select";
+  trigger.className = "custom-select-trigger";
+  trigger.type = "button";
+  trigger.setAttribute("aria-haspopup", "listbox");
+  trigger.setAttribute("aria-expanded", "false");
+  trigger.textContent = select.selectedOptions[0]?.disabled ? placeholder : select.selectedOptions[0]?.textContent || placeholder;
+
+  list.className = "custom-select-options";
+  list.setAttribute("role", "listbox");
+
+  options
+    .filter((option) => !option.disabled)
+    .forEach((option) => {
+      const item = document.createElement("button");
+      item.className = "custom-select-option";
+      item.type = "button";
+      item.setAttribute("role", "option");
+      item.textContent = option.textContent;
+
+      item.addEventListener("click", () => {
+        select.value = option.value;
+        trigger.textContent = option.textContent;
+        wrapper.classList.remove("is-open", "has-error");
+        trigger.setAttribute("aria-expanded", "false");
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+
+      list.append(item);
+    });
+
+  trigger.addEventListener("click", (event) => {
+    event.stopPropagation();
+    document.querySelectorAll(".custom-select.is-open").forEach((openSelect) => {
+      if (openSelect !== wrapper) {
+        openSelect.classList.remove("is-open");
+        openSelect.querySelector(".custom-select-trigger")?.setAttribute("aria-expanded", "false");
+      }
+    });
+    const isOpen = wrapper.classList.toggle("is-open");
+    trigger.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  wrapper.append(trigger, list);
+  select.insertAdjacentElement("afterend", wrapper);
+});
+
+document.addEventListener("pointerdown", (event) => {
+  document.querySelectorAll(".custom-select.is-open").forEach((wrapper) => {
+    if (wrapper.contains(event.target)) return;
+    wrapper.classList.remove("is-open");
+    wrapper.querySelector(".custom-select-trigger")?.setAttribute("aria-expanded", "false");
+  });
+});
+
 document.querySelectorAll(".contact-form").forEach((form) => {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
+
+    const requiredSelect = Array.from(form.querySelectorAll("select.native-select")).find((select) => !select.value);
+    if (requiredSelect) {
+      const customSelect = requiredSelect.nextElementSibling;
+      customSelect?.classList.add("has-error");
+      customSelect?.querySelector(".custom-select-trigger")?.focus();
+      return;
+    }
 
     const button = form.querySelector("button");
     const originalButtonText = button?.textContent;

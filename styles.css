@@ -1772,6 +1772,97 @@ select option {
   color: var(--color-text-dark);
 }
 
+.native-select {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.custom-select {
+  position: relative;
+  z-index: 4;
+}
+
+.custom-select.is-open {
+  z-index: 12;
+}
+
+.custom-select-trigger {
+  position: relative;
+  width: 100%;
+  min-height: 48px;
+  cursor: pointer;
+  padding: 13px 42px 13px 12px;
+  color: var(--color-text-secondary);
+  background: var(--color-white-alpha-06);
+  border: 1px solid var(--color-border);
+  font: inherit;
+  font-weight: 800;
+  text-align: left;
+}
+
+.custom-select-trigger::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--color-primary-bright);
+  border-bottom: 2px solid var(--color-primary-bright);
+  transform: translateY(-68%) rotate(45deg);
+  transition: transform 160ms ease;
+}
+
+.custom-select.is-open .custom-select-trigger {
+  border-color: var(--color-primary-bright);
+}
+
+.custom-select.is-open .custom-select-trigger::after {
+  transform: translateY(-30%) rotate(225deg);
+}
+
+.custom-select.has-error .custom-select-trigger {
+  border-color: var(--color-danger-alpha-72);
+}
+
+.custom-select-options {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  left: 0;
+  display: none;
+  max-height: min(320px, 56vh);
+  overflow-y: auto;
+  background: var(--color-bg-main);
+  border: 1px solid var(--color-border-strong);
+  box-shadow: 0 24px 60px var(--color-shadow-34);
+}
+
+.custom-select.is-open .custom-select-options {
+  display: grid;
+}
+
+.custom-select-option {
+  cursor: pointer;
+  padding: 12px 14px;
+  color: var(--color-text-primary);
+  background: var(--color-bg-main);
+  border: 0;
+  border-bottom: 1px solid var(--color-border-faint);
+  font: inherit;
+  text-align: left;
+}
+
+.custom-select-option:hover,
+.custom-select-option:focus-visible {
+  color: var(--color-white);
+  background: var(--color-primary-alpha-14);
+}
+
 textarea {
   resize: vertical;
 }
