@@ -73,14 +73,37 @@ document.querySelectorAll(".contact-form").forEach((form) => {
 });
 
 document.querySelectorAll(".faq-section").forEach((section) => {
-  const items = Array.from(section.querySelectorAll("details"));
+  const items = Array.from(section.querySelectorAll(".faq-item"));
+
+  const setItemOpen = (item, shouldOpen) => {
+    const button = item.querySelector(".faq-question");
+    const answer = item.querySelector(".faq-answer");
+    if (!button || !answer) return;
+
+    item.classList.toggle("is-open", shouldOpen);
+    button.setAttribute("aria-expanded", String(shouldOpen));
+    answer.setAttribute("aria-hidden", String(!shouldOpen));
+    answer.style.height = shouldOpen ? `${answer.scrollHeight}px` : "0px";
+  };
 
   items.forEach((item) => {
-    item.addEventListener("toggle", () => {
-      if (!item.open) return;
+    const button = item.querySelector(".faq-question");
+    if (!button) return;
+
+    setItemOpen(item, item.classList.contains("is-open"));
+
+    button.addEventListener("click", () => {
+      const shouldOpen = !item.classList.contains("is-open");
+
       items.forEach((otherItem) => {
-        if (otherItem !== item) otherItem.open = false;
+        setItemOpen(otherItem, otherItem === item && shouldOpen);
       });
+    });
+  });
+
+  window.addEventListener("resize", () => {
+    items.forEach((item) => {
+      if (item.classList.contains("is-open")) setItemOpen(item, true);
     });
   });
 });
