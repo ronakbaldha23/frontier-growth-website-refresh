@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="shortcut icon" href="favicon.svg">
+    <title>Contact Us | Frontier Growth</title>
+    <meta
+      name="description"
+      content="Contact Frontier Growth to check market availability and choose the right realtor, homeowner, or cold outreach campaign."
+    >
+    <meta name="keywords" content="contact Frontier Growth, check market availability, home service lead generation, outreach campaigns">
+    <link rel="canonical" href="https://www.frontiergrowth.io/contact">
+    <meta property="og:title" content="Contact Us | Frontier Growth">
+    <meta property="og:description" content="Share your service category and market so Frontier Growth can recommend the right campaign path.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.frontiergrowth.io/contact">
+    <meta property="og:image" content="https://www.frontiergrowth.io/assets/frontier-growth-logo-light.png">
+    <meta property="og:site_name" content="Frontier Growth">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contact Us | Frontier Growth">
+    <meta name="twitter:description" content="Check market availability and choose the right campaign path.">
+    <meta name="twitter:image" content="https://www.frontiergrowth.io/assets/frontier-growth-logo-light.png">
+    <link rel="preload" as="image" href="assets/frontier-growth-logo-light-cropped.png">
+    <link rel="preload" as="image" href="assets/frontier-growth-reference.jpg">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <!-- Site header and primary navigation -->
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Frontier Growth home">
+        <img src="assets/frontier-growth-logo-light-cropped.png" alt="Frontier Growth" width="300" height="104">
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="site-nav" id="primary-navigation" aria-label="Primary navigation">
+        <a href="/realtor-campaigns">Realtor Campaigns</a>
+        <a href="/homeowner-campaigns">Homeowner Campaigns</a>
+        <a href="/cold-outreach">Cold Outreach</a>
+        <a href="/about">About Us</a>
+        <a href="/contact" aria-current="page">Contact Us</a>
+        <a class="nav-cta" href="/contact">Check Availability</a>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <!-- Contact form -->
+      <section class="section contact-section contact-page-section">
+        <div>
+          <p class="eyebrow">Contact Us</p>
+          <h1>Check market availability.</h1>
+          <p>
+            Tell us your service category and target market. We will confirm whether your area is available
+            and recommend the best campaign path.
+          </p>
+        </div>
+        <form class="contact-form" name="contact-page" action="/thank-you" method="post" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact-page">
+          <input type="hidden" name="page" value="Contact">
+          <p class="form-hidden">
+            <label>
+              Do not fill this out
+              <input name="bot-field">
+            </label>
+          </p>
+          <label>
+            Full name
+            <input type="text" name="name" autocomplete="name" required>
+          </label>
+          <label>
+            Company
+            <input type="text" name="company" autocomplete="organization" required>
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" autocomplete="email" required>
+          </label>
+          <label>
+            Service category
+            <input type="text" name="category" placeholder="Moving, roofing, insurance..." required>
+          </label>
+          <label class="full">
+            Target market
+            <textarea name="market" rows="4" placeholder="City, county, ZIP codes, or service area" required></textarea>
+          </label>
+          <button class="button primary" type="submit">Check Availability</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- Site footer -->
+    <footer class="site-footer">
+      <div>
+        <strong>Frontier Growth</strong>
+        <p>
+          <a href="/realtor-campaigns">Realtor campaigns</a>,
+          <a href="/homeowner-campaigns">homeowner campaigns</a>, and
+          <a href="/cold-outreach">cold outreach</a> for home-service businesses.
+        </p>
+      </div>
+      <div>
+        <a href="mailto:justin@frontiergrowth.io">justin@frontiergrowth.io</a>
+        <a href="tel:+18506840422">850 684 0422</a>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

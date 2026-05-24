@@ -6,3 +6,64 @@
   from = "/thank-you"
   to = "/thank-you.html"
   status = 200
+
+[[redirects]]
+  from = "/realtor-campaigns"
+  to = "/realtor-campaigns.html"
+  status = 200
+
+[[redirects]]
+  from = "/homeowner-campaigns"
+  to = "/homeowner-campaigns.html"
+  status = 200
+
+[[redirects]]
+  from = "/cold-outreach"
+  to = "/cold-outreach.html"
+  status = 200
+
+[[redirects]]
+  from = "/about"
+  to = "/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/realtor-campaigns.html"
+  to = "/realtor-campaigns"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/homeowner-campaigns.html"
+  to = "/homeowner-campaigns"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/cold-outreach.html"
+  to = "/cold-outreach"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about.html"
+  to = "/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact.html"
+  to = "/contact"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/thank-you.html"
+  to = "/thank-you"
+  status = 301
+  force = true
