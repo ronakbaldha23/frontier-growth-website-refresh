@@ -11,7 +11,8 @@ const closeNavigation = () => {
 };
 
 if (toggle && nav) {
-  toggle.addEventListener("click", () => {
+  toggle.addEventListener("click", (event) => {
+    event.stopPropagation();
     const isOpen = nav.classList.toggle("is-open");
     toggle.setAttribute("aria-expanded", String(isOpen));
     toggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
@@ -27,6 +28,14 @@ if (toggle && nav) {
       toggle.focus();
     }
   });
+
+  document.addEventListener("pointerdown", (event) => {
+    if (!nav.classList.contains("is-open")) return;
+    if (nav.contains(event.target) || toggle.contains(event.target)) return;
+    closeNavigation();
+  });
+
+  window.addEventListener("scroll", closeNavigation, { passive: true });
 
   window.addEventListener("resize", () => {
     if (window.matchMedia("(min-width: 1025px)").matches) closeNavigation();
@@ -105,10 +114,20 @@ document.querySelectorAll(".faq-section").forEach((section) => {
     const answer = item.querySelector(".faq-answer");
     if (!button || !answer) return;
 
-    item.classList.toggle("is-open", shouldOpen);
     button.setAttribute("aria-expanded", String(shouldOpen));
     answer.setAttribute("aria-hidden", String(!shouldOpen));
-    answer.style.height = shouldOpen ? `${answer.scrollHeight}px` : "0px";
+
+    if (shouldOpen) {
+      item.classList.add("is-open");
+      answer.style.height = `${answer.scrollHeight}px`;
+      return;
+    }
+
+    answer.style.height = `${answer.scrollHeight}px`;
+    window.requestAnimationFrame(() => {
+      item.classList.remove("is-open");
+      answer.style.height = "0px";
+    });
   };
 
   items.forEach((item) => {
@@ -128,7 +147,20 @@ document.querySelectorAll(".faq-section").forEach((section) => {
 
   window.addEventListener("resize", () => {
     items.forEach((item) => {
-      if (item.classList.contains("is-open")) setItemOpen(item, true);
+      const answer = item.querySelector(".faq-answer");
+      if (answer && item.classList.contains("is-open")) {
+        answer.style.height = `${answer.scrollHeight}px`;
+      }
+    });
+  });
+
+  items.forEach((item) => {
+    const answer = item.querySelector(".faq-answer");
+    if (!answer) return;
+
+    answer.addEventListener("transitionend", (event) => {
+      if (event.propertyName !== "height" || !item.classList.contains("is-open")) return;
+      answer.style.height = "auto";
     });
   });
 });
