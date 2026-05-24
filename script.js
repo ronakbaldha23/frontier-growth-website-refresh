@@ -66,9 +66,34 @@ if (header) {
 }
 
 document.querySelectorAll(".contact-form").forEach((form) => {
-  form.addEventListener("submit", () => {
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
     const button = form.querySelector("button");
-    if (button) button.textContent = "Sending...";
+    const originalButtonText = button?.textContent;
+    if (button) {
+      button.textContent = "Sending...";
+      button.disabled = true;
+    }
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(new FormData(form)).toString(),
+      });
+
+      if (!response.ok) throw new Error("Form submission failed");
+
+      window.location.replace(form.getAttribute("action") || "/thank-you");
+    } catch (error) {
+      if (button) {
+        button.textContent = originalButtonText || "Submit";
+        button.disabled = false;
+      }
+
+      HTMLFormElement.prototype.submit.call(form);
+    }
   });
 });
 
