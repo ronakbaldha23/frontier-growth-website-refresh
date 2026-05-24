@@ -140,14 +140,58 @@ document.addEventListener("pointerdown", (event) => {
 });
 
 document.querySelectorAll(".contact-form").forEach((form) => {
+  const setFieldError = (field, message) => {
+    const label = field.closest("label") || field.parentElement;
+    if (!label) return;
+
+    label.classList.add("field-error");
+    field.classList.add("user-invalid");
+
+    let validationMessage = label.querySelector(".validation-message");
+    if (!validationMessage) {
+      validationMessage = document.createElement("span");
+      validationMessage.className = "validation-message";
+      validationMessage.setAttribute("aria-live", "polite");
+      label.append(validationMessage);
+    }
+
+    validationMessage.textContent = message;
+  };
+
+  const clearFieldError = (field) => {
+    const label = field.closest("label") || field.parentElement;
+    label?.classList.remove("field-error");
+    field.classList.remove("user-invalid");
+    field.nextElementSibling?.classList.remove("has-error");
+  };
+
+  form.querySelectorAll("input, textarea, select").forEach((field) => {
+    field.addEventListener("input", () => clearFieldError(field));
+    field.addEventListener("change", () => clearFieldError(field));
+  });
+
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const requiredSelect = Array.from(form.querySelectorAll("select.native-select")).find((select) => !select.value);
-    if (requiredSelect) {
-      const customSelect = requiredSelect.nextElementSibling;
-      customSelect?.classList.add("has-error");
-      customSelect?.querySelector(".custom-select-trigger")?.focus();
+    const invalidField = Array.from(form.querySelectorAll("input, textarea, select")).find((field) => {
+      if (field.classList.contains("native-select")) return !field.value;
+      return !field.checkValidity();
+    });
+    if (invalidField) {
+      const message = invalidField.validity.valueMissing
+        ? "This field is required."
+        : invalidField.type === "email"
+          ? "Enter a valid email address."
+          : "Please enter a valid value.";
+
+      setFieldError(invalidField, message);
+      const customSelect = invalidField.nextElementSibling;
+      if (customSelect?.classList.contains("custom-select")) {
+        customSelect.classList.add("has-error");
+        customSelect.querySelector(".custom-select-trigger")?.focus();
+      } else {
+        invalidField.focus();
+      }
       return;
     }
 

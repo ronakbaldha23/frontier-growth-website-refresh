@@ -167,8 +167,7 @@ button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid var(--color-primary-bright);
-  outline-offset: 3px;
+  outline: 0;
 }
 
 .skip-link {
@@ -515,9 +514,6 @@ h3 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: stretch;
   align-self: center;
-  border-left: 1px solid var(--color-border);
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
   background: var(--color-surface-hero);
   box-shadow: 0 24px 80px var(--color-shadow-18);
 }
@@ -527,9 +523,15 @@ h3 {
   align-content: center;
   min-height: 170px;
   padding: 20px 16px;
-  border-right: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
   color: var(--color-text-secondary);
   text-align: center;
+}
+
+.hero-pillars article:nth-child(4n) {
+  border-right: 1px solid var(--color-border);
 }
 
 .hero-pillars svg {
@@ -559,7 +561,9 @@ h3 {
   justify-content: center;
   gap: 12px;
   padding: 16px 20px;
-  border-top: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
 }
 
 .trusted-by span {
@@ -1737,12 +1741,17 @@ input:focus,
 textarea:focus,
 select:focus {
   border-color: var(--color-primary-bright);
+  box-shadow: inset 0 0 0 1px var(--color-primary-bright);
 }
 
-input:user-invalid,
-textarea:user-invalid,
-select:user-invalid {
+.field-error input,
+.field-error textarea,
+.field-error .custom-select-trigger,
+input.user-invalid,
+textarea.user-invalid,
+select.user-invalid {
   border-color: var(--color-danger-alpha-72);
+  box-shadow: inset 0 0 0 1px var(--color-danger-alpha-72);
 }
 
 input::placeholder,
@@ -1827,6 +1836,7 @@ select option {
 
 .custom-select.has-error .custom-select-trigger {
   border-color: var(--color-danger-alpha-72);
+  box-shadow: inset 0 0 0 1px var(--color-danger-alpha-72);
 }
 
 .custom-select-options {
@@ -1861,6 +1871,19 @@ select option {
 .custom-select-option:focus-visible {
   color: var(--color-white);
   background: var(--color-primary-alpha-14);
+}
+
+.validation-message {
+  display: none;
+  margin-top: 7px;
+  color: var(--color-danger);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.field-error .validation-message {
+  display: block;
 }
 
 textarea {
@@ -2142,7 +2165,20 @@ textarea {
   }
 
   .hero-pillars {
-    border-top: 1px solid var(--color-border);
+    border: 0;
+  }
+
+  .hero-pillars article {
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero-pillars article:nth-child(2n) {
+    border-right: 1px solid var(--color-border);
+  }
+
+  .hero-pillars article:nth-child(n + 3) {
+    border-top: 0;
   }
 
   .trusted-by {
@@ -2164,11 +2200,11 @@ textarea {
   .flow-grid,
   .moment-points,
   .check-list,
-  .contact-form,
-  .signal-grid {
+  .contact-form {
     grid-template-columns: 1fr;
   }
 
+  .signal-grid,
   .industry-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2268,16 +2304,17 @@ textarea {
   .moment-points,
   .check-list,
   .contact-form,
-  .hero-pillars,
-  .signal-grid {
+  .hero-pillars {
     grid-template-columns: 1fr;
   }
 
+  .signal-grid,
   .industry-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
 
+  .signal-grid span,
   .industry-list span {
     min-height: 46px;
     padding: 10px 8px;
@@ -2287,7 +2324,20 @@ textarea {
 
   .hero-pillars article {
     min-height: 140px;
+    border-top: 0;
     border-right: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero-pillars article:first-child {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .hero-pillars article:nth-child(2n) {
+    border-right: 1px solid var(--color-border);
+  }
+
+  .hero-pillars article:nth-last-child(-n + 2) {
     border-bottom: 1px solid var(--color-border);
   }
 
