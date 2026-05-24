@@ -77,7 +77,7 @@ document.querySelectorAll(".contact-form").forEach((form) => {
     }
 
     try {
-      const response = await fetch("/", {
+      const response = await fetch(window.location.pathname || "/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(new FormData(form)).toString(),
