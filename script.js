@@ -38,3 +38,16 @@ document.querySelectorAll(".contact-form").forEach((form) => {
     if (button) button.textContent = "Sending...";
   });
 });
+
+document.querySelectorAll(".faq-section").forEach((section) => {
+  const items = Array.from(section.querySelectorAll("details"));
+
+  items.forEach((item) => {
+    item.addEventListener("toggle", () => {
+      if (!item.open) return;
+      items.forEach((otherItem) => {
+        if (otherItem !== item) otherItem.open = false;
+      });
+    });
+  });
+});
