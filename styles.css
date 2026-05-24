@@ -537,6 +537,7 @@ h3 {
 .trusted-logo {
   position: relative;
   display: grid;
+  flex: 0 0 136px;
   place-items: center;
   width: 136px;
   height: 66px;
@@ -2148,8 +2149,36 @@ textarea {
   }
 
   .trusted-logo {
-    width: 100%;
-    max-width: 220px;
+    flex-basis: 148px;
+    width: 148px;
+    max-width: none;
+  }
+
+  .trusted-by {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-inline: -18px;
+    padding: 14px 18px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .trusted-by::-webkit-scrollbar {
+    display: none;
+  }
+
+  .trusted-by span,
+  .trusted-logo {
+    scroll-snap-align: start;
+  }
+
+  .trusted-by span {
+    flex: 0 0 auto;
+    white-space: nowrap;
   }
 
   .dashboard-preview,
