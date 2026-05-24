@@ -276,17 +276,89 @@
 
     <!-- Site footer -->
     <footer class="site-footer">
-      <div>
-        <strong>Frontier Growth</strong>
-        <p>
-          <a href="/realtor-campaigns">Realtor campaigns</a>,
-          <a href="/homeowner-campaigns">homeowner campaigns</a>, and
-          <a href="/cold-outreach">cold outreach</a> for home-service businesses.
-        </p>
+      <div class="footer-main">
+        <section class="footer-brand" aria-label="Frontier Growth overview">
+          <a class="footer-logo" href="/" aria-label="Frontier Growth home">
+            <img src="assets/frontier-growth-logo-light-cropped.png" alt="Frontier Growth" width="300" height="104">
+          </a>
+          <p>
+            Automated realtor, homeowner, and cold outreach campaigns for home-service businesses that want more qualified local conversations.
+          </p>
+          <div class="footer-social" aria-label="Connect with Frontier Growth">
+            <a href="https://www.linkedin.com/company/frontier-growth-solutions" target="_blank" rel="noopener" aria-label="Frontier Growth on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6.5 9.5V19"></path>
+                <path d="M6.5 5v.1"></path>
+                <path d="M10.5 19V9.5"></path>
+                <path d="M10.5 13.5c0-2.3 1.4-4 3.6-4 2.1 0 3.4 1.4 3.4 4V19"></path>
+              </svg>
+            </a>
+            <a href="mailto:justin@frontiergrowth.io" aria-label="Email Frontier Growth">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 6h16v12H4z"></path>
+                <path d="m4 8 8 6 8-6"></path>
+              </svg>
+            </a>
+            <a href="tel:+18506840422" aria-label="Call Frontier Growth">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 4h3l1.5 4-2 1.2c1 2.1 2.2 3.3 4.3 4.3l1.2-2 4 1.5v3c0 1.1-.9 2-2 2-7.2 0-13-5.8-13-13 0-1.1.9-2 2-2Z"></path>
+              </svg>
+            </a>
+          </div>
+        </section>
+
+        <nav class="footer-column" aria-label="Quick navigation">
+          <h2>Quick Links</h2>
+          <a href="/">Home</a>
+          <a href="/about">About Us</a>
+          <a href="/contact">Contact Us</a>
+        </nav>
+
+        <nav class="footer-column" aria-label="Services">
+          <h2>Services</h2>
+          <a href="/realtor-campaigns">Realtor Campaigns</a>
+          <a href="/homeowner-campaigns">Homeowner Campaigns</a>
+          <a href="/cold-outreach">Cold Outreach</a>
+          <a href="/contact">Check Availability</a>
+        </nav>
+
+        <section class="footer-column footer-contact" aria-label="Contact information">
+          <h2>Contact</h2>
+          <address>
+            <span>19 Kris Court</span>
+            <span>Newark, Delaware 19702</span>
+            <span>United States</span>
+          </address>
+          <a href="mailto:justin@frontiergrowth.io">justin@frontiergrowth.io</a>
+          <a href="tel:+18506840422">850 684 0422</a>
+        </section>
+
+        <section class="footer-newsletter" aria-label="Newsletter signup">
+          <h2>Stay in the loop</h2>
+          <p>Get practical outreach and lead-generation insights for home-service growth.</p>
+          <form name="newsletter" action="/thank-you" method="post" data-netlify="true" netlify-honeypot="bot-field-newsletter">
+            <input type="hidden" name="form-name" value="newsletter">
+            <p class="form-hidden">
+              <label>
+                Do not fill this out
+                <input name="bot-field-newsletter">
+              </label>
+            </p>
+            <label>
+              <span>Email address</span>
+              <input type="email" name="email" autocomplete="email" placeholder="you@company.com" required>
+            </label>
+            <button class="button primary" type="submit">Subscribe</button>
+          </form>
+        </section>
       </div>
-      <div>
-        <a href="mailto:justin@frontiergrowth.io">justin@frontiergrowth.io</a>
-        <a href="tel:+18506840422">850 684 0422</a>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Frontier Growth. All rights reserved.</p>
+        <div>
+          <a href="/contact">Start a Campaign</a>
+          <a href="/about">Company</a>
+        </div>
       </div>
     </footer>
 
