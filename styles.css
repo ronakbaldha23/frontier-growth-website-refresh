@@ -136,12 +136,14 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 82px;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   overflow-x: hidden;
+  scroll-behavior: smooth;
   background:
     radial-gradient(circle at 10% 0%, var(--color-body-radial), var(--color-transparent) 30rem),
     linear-gradient(180deg, var(--color-bg-body-start) 0%, var(--color-bg-body-mid) 48%, var(--color-bg-main) 100%);
@@ -215,6 +217,12 @@ select:focus-visible {
   background: var(--color-header-bg);
   border-bottom: 1px solid var(--color-border);
   backdrop-filter: blur(18px);
+  transition: transform 260ms ease, background 180ms ease, border-color 180ms ease;
+  will-change: transform;
+}
+
+.site-header.is-hidden {
+  transform: translateY(-100%);
 }
 
 .brand {
@@ -1586,15 +1594,15 @@ summary::after {
   color: var(--color-primary-bright);
   background: var(--color-white-alpha-06);
   border: 1px solid var(--color-border);
-  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+  font-size: 22px;
+  line-height: 1;
 }
 
 details[open] summary::after {
   content: "-";
-  color: var(--color-bg-main);
   background: var(--color-primary-bright);
+  color: var(--color-bg-main);
   border-color: var(--color-primary-bright);
-  transform: rotate(180deg);
 }
 
 details .faq-answer {

@@ -1,5 +1,6 @@
 const toggle = document.querySelector(".nav-toggle");
 const nav = document.querySelector("#primary-navigation");
+const header = document.querySelector(".site-header");
 
 // Keep mobile navigation state and ARIA attributes in sync.
 const closeNavigation = () => {
@@ -30,6 +31,38 @@ if (toggle && nav) {
   window.addEventListener("resize", () => {
     if (window.matchMedia("(min-width: 1025px)").matches) closeNavigation();
   });
+}
+
+if (header) {
+  let previousScrollY = window.scrollY;
+  let ticking = false;
+
+  const updateHeaderVisibility = () => {
+    const currentScrollY = window.scrollY;
+    const navIsOpen = nav?.classList.contains("is-open");
+    const scrollingDown = currentScrollY > previousScrollY;
+
+    if (currentScrollY < 80 || navIsOpen) {
+      header.classList.remove("is-hidden");
+    } else if (scrollingDown) {
+      header.classList.add("is-hidden");
+    } else {
+      header.classList.remove("is-hidden");
+    }
+
+    previousScrollY = Math.max(currentScrollY, 0);
+    ticking = false;
+  };
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      window.requestAnimationFrame(updateHeaderVisibility);
+      ticking = true;
+    },
+    { passive: true }
+  );
 }
 
 document.querySelectorAll(".contact-form").forEach((form) => {
