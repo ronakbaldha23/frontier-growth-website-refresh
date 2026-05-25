@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
 
-$recipientEmail = 'justin@frontiergrowth.io';
-$fromEmail = 'noreply@frontiergrowth.io';
+$recipientEmail = 'ronakdbaldha@gmail.com';
+$fromEmail = 'justin@frontiergrowth.io';
 $siteName = 'Frontier Growth';
 $thankYouUrl = '/thank-you';
 
@@ -96,5 +96,17 @@ $sent = mail($recipientEmail, $subject, $message, implode("\r\n", $headers), '-f
 if (!$sent) {
     error_log('Frontier Growth form email failed for ' . $email);
 }
+
+$logPath = $storageDir . '/mail-log.txt';
+$logLine = sprintf(
+    "[%s] sent=%s recipient=%s from=%s lead_email=%s page=%s\n",
+    $submittedAt,
+    $sent ? 'yes' : 'no',
+    $recipientEmail,
+    $fromEmail,
+    $email,
+    $page
+);
+file_put_contents($logPath, $logLine, FILE_APPEND | LOCK_EX);
 
 redirect_to($thankYouUrl);
