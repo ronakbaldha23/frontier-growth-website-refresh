@@ -3,6 +3,16 @@
   command = ""
 
 [[redirects]]
+  from = "/php-backup/*"
+  to = "/"
+  status = 404
+
+[[redirects]]
+  from = "/form-submissions/*"
+  to = "/"
+  status = 404
+
+[[redirects]]
   from = "/thank-you"
   to = "/thank-you.html"
   status = 200

@@ -140,15 +140,6 @@ document.addEventListener("pointerdown", (event) => {
 });
 
 document.querySelectorAll(".contact-form").forEach((form) => {
-  let startedAt = form.querySelector('input[name="started_at"]');
-  if (!startedAt) {
-    startedAt = document.createElement("input");
-    startedAt.type = "hidden";
-    startedAt.name = "started_at";
-    form.append(startedAt);
-  }
-  startedAt.value = String(Math.floor(Date.now() / 1000));
-
   const setFieldError = (field, message) => {
     const label = field.closest("label") || field.parentElement;
     if (!label) return;
@@ -214,11 +205,9 @@ document.querySelectorAll(".contact-form").forEach((form) => {
 
     let timeout;
     try {
-      const action = form.getAttribute("action") || "/submit-form.php";
-      const submitUrl = window.location.hostname.includes("netlify.app") ? window.location.pathname || "/" : action;
       const controller = new AbortController();
       timeout = window.setTimeout(() => controller.abort(), 12000);
-      const response = await fetch(submitUrl, {
+      const response = await fetch(window.location.pathname || "/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(new FormData(form)).toString(),
@@ -228,7 +217,7 @@ document.querySelectorAll(".contact-form").forEach((form) => {
 
       if (!response.ok) throw new Error("Form submission failed");
 
-      window.location.replace(response.redirected ? response.url : "/thank-you");
+      window.location.replace(form.getAttribute("action") || "/thank-you");
     } catch (error) {
       if (timeout) window.clearTimeout(timeout);
       if (button) {
