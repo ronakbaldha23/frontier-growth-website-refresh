@@ -26,11 +26,6 @@ if (!empty($_POST['bot-field'] ?? '')) {
     redirect_to($thankYouUrl);
 }
 
-$startedAt = isset($_POST['started_at']) ? (int) $_POST['started_at'] : 0;
-if ($startedAt > 0 && (time() - $startedAt) < 2) {
-    redirect_to($thankYouUrl);
-}
-
 $name = clean_value((string) ($_POST['name'] ?? ''));
 $company = clean_value((string) ($_POST['company'] ?? ''));
 $email = clean_value((string) ($_POST['email'] ?? ''));

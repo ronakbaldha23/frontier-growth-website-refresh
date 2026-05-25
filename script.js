@@ -207,29 +207,45 @@ document.querySelectorAll(".contact-form").forEach((form) => {
     const button = form.querySelector("button");
     const originalButtonText = button?.textContent;
     if (button) {
+      button.dataset.originalText = originalButtonText || "Submit";
       button.textContent = "Sending...";
       button.disabled = true;
     }
 
+    let timeout;
     try {
       const action = form.getAttribute("action") || "/submit-form.php";
       const submitUrl = window.location.hostname.includes("netlify.app") ? window.location.pathname || "/" : action;
+      const controller = new AbortController();
+      timeout = window.setTimeout(() => controller.abort(), 12000);
       const response = await fetch(submitUrl, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(new FormData(form)).toString(),
+        signal: controller.signal,
       });
+      window.clearTimeout(timeout);
 
       if (!response.ok) throw new Error("Form submission failed");
 
       window.location.replace(response.redirected ? response.url : "/thank-you");
     } catch (error) {
+      if (timeout) window.clearTimeout(timeout);
       if (button) {
         button.textContent = originalButtonText || "Submit";
         button.disabled = false;
       }
 
       HTMLFormElement.prototype.submit.call(form);
+    }
+  });
+});
+
+window.addEventListener("pageshow", () => {
+  document.querySelectorAll(".contact-form button[type='submit']").forEach((button) => {
+    button.disabled = false;
+    if (button.dataset.originalText) {
+      button.textContent = button.dataset.originalText;
     }
   });
 });
