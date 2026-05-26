@@ -140,6 +140,22 @@ document.addEventListener("pointerdown", (event) => {
 });
 
 document.querySelectorAll(".contact-form").forEach((form) => {
+  const ensureHiddenField = (name, value) => {
+    let field = form.querySelector(`input[name="${name}"]`);
+    if (!field) {
+      field = document.createElement("input");
+      field.type = "hidden";
+      field.name = name;
+      form.prepend(field);
+    }
+    field.value = value;
+  };
+
+  ensureHiddenField("_subject", "Frontier Growth Website Inquiry");
+  ensureHiddenField("_template", "table");
+  ensureHiddenField("_captcha", "false");
+  ensureHiddenField("_next", `${window.location.origin}/thank-you`);
+
   const setFieldError = (field, message) => {
     const label = field.closest("label") || field.parentElement;
     if (!label) return;
@@ -173,7 +189,14 @@ document.querySelectorAll(".contact-form").forEach((form) => {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    const botField = form.querySelector('[name="bot-field"]');
+    if (botField?.value) {
+      window.location.replace("/thank-you");
+      return;
+    }
+
     const invalidField = Array.from(form.querySelectorAll("input, textarea, select")).find((field) => {
+      if (field.type === "hidden") return false;
       if (field.classList.contains("native-select")) return !field.value;
       return !field.checkValidity();
     });
@@ -207,9 +230,12 @@ document.querySelectorAll(".contact-form").forEach((form) => {
     try {
       const controller = new AbortController();
       timeout = window.setTimeout(() => controller.abort(), 12000);
-      const response = await fetch(window.location.pathname || "/", {
+      const response = await fetch(form.dataset.emailEndpoint || form.getAttribute("action"), {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
         body: new URLSearchParams(new FormData(form)).toString(),
         signal: controller.signal,
       });
@@ -217,7 +243,7 @@ document.querySelectorAll(".contact-form").forEach((form) => {
 
       if (!response.ok) throw new Error("Form submission failed");
 
-      window.location.replace(form.getAttribute("action") || "/thank-you");
+      window.location.replace(form.querySelector('input[name="_next"]')?.value || "/thank-you");
     } catch (error) {
       if (timeout) window.clearTimeout(timeout);
       if (button) {
