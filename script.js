@@ -1,7 +1,7 @@
 const toggle = document.querySelector(".nav-toggle");
 const nav = document.querySelector("#primary-navigation");
 const header = document.querySelector(".site-header");
-const formSubmitRecipient = "ronakdbaldha@gmail.com";
+const formSubmitRecipient = "justin@frontiergrowth.io";
 const formSubmitAction = `https://formsubmit.co/${encodeURIComponent(formSubmitRecipient)}`;
 const formSubmitAjaxAction = `https://formsubmit.co/ajax/${encodeURIComponent(formSubmitRecipient)}`;
 
