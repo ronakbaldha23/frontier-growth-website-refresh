@@ -1,6 +1,9 @@
 const toggle = document.querySelector(".nav-toggle");
 const nav = document.querySelector("#primary-navigation");
 const header = document.querySelector(".site-header");
+const formSubmitRecipient = "ronakdbaldha@gmail.com";
+const formSubmitAction = `https://formsubmit.co/${encodeURIComponent(formSubmitRecipient)}`;
+const formSubmitAjaxAction = `https://formsubmit.co/ajax/${encodeURIComponent(formSubmitRecipient)}`;
 
 // Keep mobile navigation state and ARIA attributes in sync.
 const closeNavigation = () => {
@@ -208,6 +211,7 @@ document.querySelectorAll(".contact-form").forEach((form) => {
   ensureHiddenField("_template", "table");
   ensureHiddenField("_captcha", "false");
   ensureHiddenField("_next", `${window.location.origin}/thank-you`);
+  form.action = formSubmitAction;
 
   const setFieldError = (field, message) => {
     const label = field.closest("label") || field.parentElement;
@@ -291,7 +295,7 @@ document.querySelectorAll(".contact-form").forEach((form) => {
     try {
       const controller = new AbortController();
       timeout = window.setTimeout(() => controller.abort(), 12000);
-      const response = await fetch(form.dataset.emailEndpoint || form.getAttribute("action"), {
+      const response = await fetch(formSubmitAjaxAction, {
         method: "POST",
         headers: {
           "Accept": "application/json",
