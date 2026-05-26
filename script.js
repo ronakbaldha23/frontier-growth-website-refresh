@@ -304,7 +304,7 @@ document.querySelectorAll(".contact-form").forEach((form) => {
 
       if (!response.ok) throw new Error("Form submission failed");
 
-      window.location.replace(form.querySelector('input[name="_next"]')?.value || "/thank-you");
+      window.location.assign(form.querySelector('input[name="_next"]')?.value || "/thank-you");
     } catch (error) {
       if (timeout) window.clearTimeout(timeout);
       form.dataset.submitting = "false";
