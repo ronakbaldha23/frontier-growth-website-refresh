@@ -205,9 +205,10 @@ document.querySelectorAll(".contact-form").forEach((form) => {
       form.prepend(field);
     }
     field.value = value;
+    return field;
   };
 
-  ensureHiddenField("_subject", "Frontier Growth Website Inquiry");
+  const subjectField = ensureHiddenField("_subject", "Frontier Growth Website Inquiry");
   ensureHiddenField("_template", "table");
   ensureHiddenField("_captcha", "false");
   ensureHiddenField("_next", `${window.location.origin}/thank-you`);
@@ -279,6 +280,16 @@ document.querySelectorAll(".contact-form").forEach((form) => {
 
     const button = form.querySelector("button[type='submit']");
     const originalButtonText = button?.textContent;
+    const pageName = form.querySelector('input[name="page"]')?.value || document.title || "Website";
+    const visitorName = form.querySelector('input[name="name"]')?.value.trim() || "New lead";
+    const submittedAt = new Date().toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    });
+    subjectField.value = `Frontier Growth Inquiry - ${pageName} - ${visitorName} - ${submittedAt}`;
     const formData = new FormData(form);
     formData.delete("bot-field");
 
