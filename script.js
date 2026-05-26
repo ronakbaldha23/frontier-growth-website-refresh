@@ -273,7 +273,7 @@ document.querySelectorAll(".contact-form").forEach((form) => {
       return;
     }
 
-    const button = form.querySelector("button");
+    const button = form.querySelector("button[type='submit']");
     const originalButtonText = button?.textContent;
     const formData = new FormData(form);
     formData.delete("bot-field");
