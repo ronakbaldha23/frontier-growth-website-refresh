@@ -80,6 +80,7 @@ document.querySelectorAll(".contact-form select").forEach((select) => {
   const wrapper = document.createElement("div");
   const trigger = document.createElement("button");
   const list = document.createElement("div");
+  const optionButtons = [];
 
   select.classList.add("native-select");
   select.setAttribute("tabindex", "-1");
@@ -95,6 +96,30 @@ document.querySelectorAll(".contact-form select").forEach((select) => {
   list.className = "custom-select-options";
   list.setAttribute("role", "listbox");
 
+  const closeSelect = () => {
+    wrapper.classList.remove("is-open");
+    trigger.setAttribute("aria-expanded", "false");
+  };
+
+  const openSelect = () => {
+    document.querySelectorAll(".custom-select.is-open").forEach((openWrapper) => {
+      if (openWrapper !== wrapper) {
+        openWrapper.classList.remove("is-open");
+        openWrapper.querySelector(".custom-select-trigger")?.setAttribute("aria-expanded", "false");
+      }
+    });
+    wrapper.classList.add("is-open");
+    trigger.setAttribute("aria-expanded", "true");
+  };
+
+  const selectOption = (option) => {
+    select.value = option.value;
+    trigger.textContent = option.textContent;
+    wrapper.classList.remove("has-error");
+    closeSelect();
+    select.dispatchEvent(new Event("change", { bubbles: true }));
+  };
+
   options
     .filter((option) => !option.disabled)
     .forEach((option) => {
@@ -105,26 +130,54 @@ document.querySelectorAll(".contact-form select").forEach((select) => {
       item.textContent = option.textContent;
 
       item.addEventListener("click", () => {
-        select.value = option.value;
-        trigger.textContent = option.textContent;
-        wrapper.classList.remove("is-open", "has-error");
-        trigger.setAttribute("aria-expanded", "false");
-        select.dispatchEvent(new Event("change", { bubbles: true }));
+        selectOption(option);
+        trigger.focus();
       });
 
+      item.addEventListener("keydown", (event) => {
+        const currentIndex = optionButtons.indexOf(item);
+        if (event.key === "ArrowDown") {
+          event.preventDefault();
+          optionButtons[Math.min(currentIndex + 1, optionButtons.length - 1)]?.focus();
+        }
+        if (event.key === "ArrowUp") {
+          event.preventDefault();
+          optionButtons[Math.max(currentIndex - 1, 0)]?.focus();
+        }
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          selectOption(option);
+          trigger.focus();
+        }
+        if (event.key === "Escape") {
+          event.preventDefault();
+          closeSelect();
+          trigger.focus();
+        }
+      });
+
+      optionButtons.push(item);
       list.append(item);
     });
 
   trigger.addEventListener("click", (event) => {
     event.stopPropagation();
-    document.querySelectorAll(".custom-select.is-open").forEach((openSelect) => {
-      if (openSelect !== wrapper) {
-        openSelect.classList.remove("is-open");
-        openSelect.querySelector(".custom-select-trigger")?.setAttribute("aria-expanded", "false");
-      }
-    });
-    const isOpen = wrapper.classList.toggle("is-open");
-    trigger.setAttribute("aria-expanded", String(isOpen));
+    if (wrapper.classList.contains("is-open")) {
+      closeSelect();
+    } else {
+      openSelect();
+    }
+  });
+
+  trigger.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " " || event.key === "ArrowDown") {
+      event.preventDefault();
+      openSelect();
+      optionButtons[0]?.focus();
+    }
+    if (event.key === "Escape") {
+      closeSelect();
+    }
   });
 
   wrapper.append(trigger, list);
@@ -223,22 +276,15 @@ document.querySelectorAll(".contact-form").forEach((form) => {
     const button = form.querySelector("button");
     const originalButtonText = button?.textContent;
     const formData = new FormData(form);
-    let statusMessage = form.querySelector(".form-status");
-    if (!statusMessage) {
-      statusMessage = document.createElement("p");
-      statusMessage.className = "form-status";
-      statusMessage.setAttribute("aria-live", "polite");
-      button?.insertAdjacentElement("afterend", statusMessage);
-    }
+    formData.delete("bot-field");
 
     form.dataset.submitting = "true";
     form.setAttribute("aria-busy", "true");
-    statusMessage.textContent = "Sending your request...";
-    statusMessage.classList.remove("is-error");
     if (button) {
       button.dataset.originalText = originalButtonText || "Submit";
       button.textContent = "Sending...";
       button.disabled = true;
+      button.setAttribute("aria-busy", "true");
     }
 
     let timeout;
@@ -263,11 +309,10 @@ document.querySelectorAll(".contact-form").forEach((form) => {
       if (timeout) window.clearTimeout(timeout);
       form.dataset.submitting = "false";
       form.removeAttribute("aria-busy");
-      statusMessage.textContent = "We could not send the form. Please try again.";
-      statusMessage.classList.add("is-error");
       if (button) {
-        button.textContent = originalButtonText || "Submit";
+        button.textContent = "Try again";
         button.disabled = false;
+        button.removeAttribute("aria-busy");
       }
     }
   });
@@ -281,6 +326,7 @@ window.addEventListener("pageshow", () => {
 
   document.querySelectorAll(".contact-form button[type='submit']").forEach((button) => {
     button.disabled = false;
+    button.removeAttribute("aria-busy");
     if (button.dataset.originalText) {
       button.textContent = button.dataset.originalText;
     }
