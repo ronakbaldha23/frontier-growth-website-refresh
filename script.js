@@ -189,6 +189,8 @@ document.querySelectorAll(".contact-form").forEach((form) => {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    if (form.dataset.submitting === "true") return;
+
     const botField = form.querySelector('[name="bot-field"]');
     if (botField?.value) {
       window.location.replace("/thank-you");
@@ -220,6 +222,19 @@ document.querySelectorAll(".contact-form").forEach((form) => {
 
     const button = form.querySelector("button");
     const originalButtonText = button?.textContent;
+    const formData = new FormData(form);
+    let statusMessage = form.querySelector(".form-status");
+    if (!statusMessage) {
+      statusMessage = document.createElement("p");
+      statusMessage.className = "form-status";
+      statusMessage.setAttribute("aria-live", "polite");
+      button?.insertAdjacentElement("afterend", statusMessage);
+    }
+
+    form.dataset.submitting = "true";
+    form.setAttribute("aria-busy", "true");
+    statusMessage.textContent = "Sending your request...";
+    statusMessage.classList.remove("is-error");
     if (button) {
       button.dataset.originalText = originalButtonText || "Submit";
       button.textContent = "Sending...";
@@ -236,7 +251,7 @@ document.querySelectorAll(".contact-form").forEach((form) => {
           "Accept": "application/json",
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: new URLSearchParams(new FormData(form)).toString(),
+        body: new URLSearchParams(formData).toString(),
         signal: controller.signal,
       });
       window.clearTimeout(timeout);
@@ -246,17 +261,24 @@ document.querySelectorAll(".contact-form").forEach((form) => {
       window.location.replace(form.querySelector('input[name="_next"]')?.value || "/thank-you");
     } catch (error) {
       if (timeout) window.clearTimeout(timeout);
+      form.dataset.submitting = "false";
+      form.removeAttribute("aria-busy");
+      statusMessage.textContent = "We could not send the form. Please try again.";
+      statusMessage.classList.add("is-error");
       if (button) {
         button.textContent = originalButtonText || "Submit";
         button.disabled = false;
       }
-
-      HTMLFormElement.prototype.submit.call(form);
     }
   });
 });
 
 window.addEventListener("pageshow", () => {
+  document.querySelectorAll(".contact-form").forEach((form) => {
+    form.dataset.submitting = "false";
+    form.removeAttribute("aria-busy");
+  });
+
   document.querySelectorAll(".contact-form button[type='submit']").forEach((button) => {
     button.disabled = false;
     if (button.dataset.originalText) {

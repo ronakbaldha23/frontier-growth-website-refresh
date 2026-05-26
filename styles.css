@@ -1877,6 +1877,20 @@ select option {
   display: block;
 }
 
+.form-status {
+  align-self: center;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.form-status.is-error {
+  grid-column: 1 / -1;
+  color: var(--color-danger);
+}
+
 textarea {
   resize: vertical;
 }
