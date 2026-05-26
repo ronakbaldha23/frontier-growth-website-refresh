@@ -2,6 +2,22 @@
   publish = "."
   command = ""
 
+[[headers]]
+  for = "/favicon.svg"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/favicon.ico"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[redirects]]
+  from = "/favicon.ico"
+  to = "/favicon.svg"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/php-backup/*"
   to = "/"
